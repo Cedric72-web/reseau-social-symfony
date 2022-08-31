@@ -11,14 +11,14 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PostController extends AbstractController
 {
-    #[Route('/')]
+    #[Route('/', name: 'main')]
     public function index(): Response
     {
         return $this->render('post/index.html.twig', [
         ]);
     }
 
-    #[Route('/post/new')]
+    #[Route('/post/new', name: 'post_create')]
     public function create(Request $request): Response
     {
         $post = new Post();
