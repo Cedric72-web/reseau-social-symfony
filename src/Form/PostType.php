@@ -19,20 +19,20 @@ class PostType extends AbstractType
         'label' => 'Titre :',
         "required" => false,
         'attr' => [
-          "class" => 'form-control'
+          "class" => 'form-control mb-3 mt-3'
         ],
         ])
       ->add('content', TextareaType::class, [
         'label' => 'Contenu :',
         "required" => true,
         'attr' => [
-          "class" => 'form-control'
+          "class" => 'form-control mb-3 mt-3'
         ],
         ])
       ->add('image', UrlType::class, ['label' => 'Url de l\'image :',
       "required" => false,
       'attr' => [
-        "class" => 'form-control'
+        "class" => 'form-control mb-3 mt-3'
       ],
     ]);
   }
