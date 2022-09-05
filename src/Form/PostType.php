@@ -9,6 +9,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Url;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class PostType extends AbstractType
 {
@@ -18,29 +21,29 @@ class PostType extends AbstractType
       ->add('title', TextType::class, [
         'label' => 'Titre :',
         "required" => false,
-        'attr' => [
-          "class" => 'form-control mb-3 mt-3'
-        ],
+        "constraints" => [new Length(["min" => 0, "max" => 150, "minMessage" => "Le titre ne doit pas faire plus de 150 caractères", "maxMessage" => "Le titre ne doit pas faire plus de 150 caractères"]),]
         ])
       ->add('content', TextareaType::class, [
         'label' => 'Contenu :',
         "required" => true,
-        'attr' => [
-          "class" => 'form-control mb-3 mt-3'
-        ],
+        "constraints" => [
+          new Length(["min" => 5, "max" => 320, "minMessage" => "Le contenu doit faire entre 5 et 320 caractères", "maxMessage" => "Le contenu doit faire entre 5 et 320 caractères"]),
+          new NotBlank(["message" => 'Le contenu ne doit pas être vide !'])
+        ]
         ])
       ->add('image', UrlType::class, ['label' => 'Url de l\'image :',
-      "required" => false,
-      'attr' => [
-        "class" => 'form-control mb-3 mt-3'
-      ],
-    ]);
+        "required" => false,
+        "constraints" => [new Url(['message' => 'L\'image doit avoir une image valide'])],
+        ]);
   }
 
   public function configureOptions(OptionsResolver $resolver)
   {
     $resolver->setDefaults([
-      'data_class' => Post::class
+      'data_class' => Post::class,
+      'csrf_protection' => true,
+      'csrf_field_name' =>'_token',
+      'csrf_token_id'   => 'task_item',
     ]);
   }
 }

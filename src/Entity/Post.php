@@ -7,7 +7,7 @@ class Post
   private int $id;
   private ?string $title = NULL;
   private string $content;
-  private string $image;
+  private ?string $image = NULL;
   private $user;
 
   public function getId()
