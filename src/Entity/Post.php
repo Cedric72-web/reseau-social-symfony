@@ -24,8 +24,8 @@ class Post
   #[ORM\Column(type: "text", nullable: true)]
   private ?string $image = NULL;
 
-  // #[ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="posts")]
-  // private $user;
+  #[ORM\ManyToOne(targetEntity: "App\Entity\User", inversedBy: "posts")]
+  private $user;
 
   public function getId()
   {
@@ -74,15 +74,15 @@ class Post
     return $this;
   }
 
-  // public function getUser()
-  // {
-  //   return $this->user;
-  // }
+  public function getUser()
+  {
+    return $this->user;
+  }
 
-  // public function setUser($user)
-  // {
-  //   $this->user = $user;
+  public function setUser($user)
+  {
+    $this->user = $user;
 
-  //   return $this;
-  // }
+    return $this;
+  }
 }
